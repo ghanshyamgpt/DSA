@@ -17,21 +17,22 @@ int matrixSum(vector<vector<int>> &v, int l1, int r1,int l2, int r2){
         }
         
     }
+    //prefix sum array column wise
+    for(int i=1;i<v.size();i++){
+        for(int j=0;j<v[0].size();j++){
+            v[i][j]+=v[i-1][j];
+        }
+    }
     for(int i=0;i<v.size();i++){
         for(int j=0;j<v[0].size();j++){
             cout<<v[i][j]<<" ";
         }cout<<endl;
     }
-    for(int i=l1;i<=l2;i++){
-        if(r1!=0){
-        sum+=v[i][r2]-v[i][r1-1];  
-        }
-        else{
-            //v[i][r1-1]=0
-             sum+=v[i][r2]  ;
-        }
-        
-    }
+   int topSum=0,leftSum=0,topLeft=0;
+  if(l1!=0) topSum=v[l1-1][r2];
+  if(r1!=0) leftSum=v[l2][r1-1];
+  if(l1!=0 && r1!=0) topLeft=v[l1-1][r1-1];
+  sum=v[l2][r2]-topSum-leftSum+topLeft;
   
     return sum;
 }
